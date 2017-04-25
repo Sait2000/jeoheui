@@ -8,13 +8,13 @@ class CodeSpace(object):
         """
         self._lines = []
         for line in lines:
-            self._lines.append([self.disassamble(c)
+            self._lines.append([self.disassemble(c)
                                 for c in line])
         self._height = len(self._lines)
         self._width = max(len(line) for line in self._lines)
 
     @classmethod
-    def disassamble(cls, charcode):
+    def disassemble(cls, charcode):
         """
 
         :param charcode:

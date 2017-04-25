@@ -14,17 +14,17 @@ class CodeSpace(object):
         self._width = max(len(line) for line in self._lines)
 
     @classmethod
-    def disassemble(cls, charcode):
+    def disassemble(cls, code_point):
         """
 
-        :param charcode:
+        :param code_point:
         :return:
 
-        :type charcode: int
+        :type code_point: int
         :rtype: Union[(int, int, int), None]
         """
-        if 0xAC00 <= charcode <= 0xD7A3:
-            n = charcode - 0xAC00
+        if 0xAC00 <= code_point <= 0xD7A3:
+            n = code_point - 0xAC00
             return n // 588, n // 28 % 21, n % 28
         return None
 

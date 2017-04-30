@@ -102,6 +102,7 @@ def main():
         border_top_naive = concat_h(border_naive, rotate_180(border_naive))
         border_left_naive = rotate_right(border_top_naive)
 
+        write_template(u'border_intersection', border_intersection)
         write_template(u'border_top', border_top)
         write_template(u'border_left', border_left)
         write_template(u'border_top_naive', border_top_naive)

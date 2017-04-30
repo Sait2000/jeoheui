@@ -274,6 +274,10 @@ nop_templates = [
 ]
 
 
+template_border_intersection = [
+    u'아',
+]
+
 template_border_top = [
     u'아우ㅇ우ㅇ여야ㅇ오ㅇ오어',
 ]

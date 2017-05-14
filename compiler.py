@@ -10,7 +10,11 @@ import template
 # noinspection PyShadowingBuiltins
 def compile(source, out_file, newline_in=(u'\r\n', u'\n', u'\r'),
             naive_border=False, nop_character=u'ㅇ',
-            newline_out=u'\n'):
+            newline_out=u'\n', nop_pattern=(
+                ('nop_ignored', 'nop_ignored_v', 'nop_ignored'),
+                ('nop_ignored_h', 'nop', 'nop_ignored_h'),
+                ('nop_ignored', 'nop_ignored_v', 'nop_ignored'),
+            )):
     re_splitlines = re.compile(u'|'.join(
         re.escape(s)
         for s in reversed(sorted(newline_in, key=len))
@@ -42,11 +46,11 @@ def compile(source, out_file, newline_in=(u'\r\n', u'\n', u'\r'),
         border_top = template.template_border_top
         border_left = template.template_border_left
 
-    nop = (
-        (template.template_nop_ignored, template.template_nop_ignored_v, template.template_nop_ignored),
-        (template.template_nop_ignored_h, template.template_nop, template.template_nop_ignored_h),
-        (template.template_nop_ignored, template.template_nop_ignored_v, template.template_nop_ignored),
-    )
+    # TODO: XXX
+    nop = [
+        [getattr(template, 'template_' + s) for s in r]
+        for r in nop_pattern
+    ]
 
     hangul_templates = template.hangul_templates
 

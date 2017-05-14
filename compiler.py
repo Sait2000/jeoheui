@@ -11,7 +11,10 @@ import template
 def compile(source, out_file, newline_in=(u'\r\n', u'\n', u'\r'),
             naive_border=False, nop_character=u'ㅇ',
             newline_out=u'\n'):
-    re_splitlines = re.compile(u'|'.join(reversed(sorted(newline_in, key=len))))
+    re_splitlines = re.compile(u'|'.join(
+        re.escape(s)
+        for s in reversed(sorted(newline_in, key=len))
+    ))
     lines = re_splitlines.split(source)
     height = len(lines)
     width = max(len(line) for line in lines) if lines else 0

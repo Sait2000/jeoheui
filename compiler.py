@@ -14,12 +14,31 @@ def compile(source, out_file, newline_in=(u'\r\n', u'\n', u'\r'),
                 ('nop_ignored', 'nop_ignored_v', 'nop_ignored'),
                 ('nop_ignored_h', 'nop', 'nop_ignored_h'),
                 ('nop_ignored', 'nop_ignored_v', 'nop_ignored'),
-            )):
+            ), remove_trailing_newline=True,
+            remove_leading_newline=False):
     re_splitlines = re.compile(u'|'.join(
         re.escape(s)
         for s in reversed(sorted(newline_in, key=len))
     ))
     lines = re_splitlines.split(source)
+
+    if remove_trailing_newline == -1:
+        remove_trailing_newline = len(lines)
+    for __ in range(remove_trailing_newline):
+        if not lines or lines[-1]:
+            break
+        lines.pop()
+
+    if remove_leading_newline == -1:
+        remove_leading_newline = len(lines)
+    offset = 0
+    for __ in range(remove_leading_newline):
+        if len(lines) <= offset or lines[offset]:
+            break
+        offset += 1
+    if offset:
+        lines = lines[offset:]
+
     height = len(lines)
     width = max(len(line) for line in lines) if lines else 0
 
